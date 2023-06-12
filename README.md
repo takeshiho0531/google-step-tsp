@@ -12,6 +12,7 @@ Originally By: [Hayato Ito](https://github.com/hayatoito) (hayato@google.com)
   https://docs.google.com/spreadsheets/d/16JEV8SAJkFC0B4zuYsgoMQg-VHo5kQx_x-9wVmfqEkM/edit?usp=sharing
 [github issues]: https://github.com/hayatoito/google-step-tsp/issues
 
+- [Document](https://docs.google.com/document/d/1Riiav64morz6BwS-GuHWO2komxya7T_HCxkd3WxgiDo/edit)
 ## Problem Statement
 
 In this assignment, you will design an algorithm to solve a fundamental problem
