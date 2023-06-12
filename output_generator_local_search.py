@@ -18,4 +18,4 @@ def generate_output():
 
 
 if __name__ == '__main__':
-    generate_sample_output()
+    generate_output()
