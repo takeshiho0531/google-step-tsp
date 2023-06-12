@@ -24,11 +24,9 @@ def get_score(path,cities):
         score+=distance(cities[path[i]], cities[path[i+1]])
     return score
 
-def solve(cities, trial):
+def solve(cities, trial, initial_path):
     N = len(cities)
-    #path=[i for i in range(N)]
-    #path.append(0)
-    path=solver_greedy.solve(cities)
+    path=initial_path
     path.append(0)
 
     for i in range(trial):
@@ -47,10 +45,3 @@ def solve(cities, trial):
             path=updated_path
 
     return path[:-1]
-
-if __name__ == '__main__':
-    assert len(sys.argv) > 2
-    tour = solve(read_input(sys.argv[1]), int(sys.argv[2]))
-    print_tour(tour)
-
-
