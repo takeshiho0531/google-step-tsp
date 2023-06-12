@@ -1,3 +1,7 @@
 /visualizer/node_modules
 .python-version
 __py_cache__/*
+__pycache__/*
+__pycache__/solver_local_search.cpython-310.pyc
+__pycache__/solver_greedy.cpython-310.pyc
+__pycache__/common.cpython-310.pyc
