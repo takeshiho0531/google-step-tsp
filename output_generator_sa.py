@@ -3,7 +3,7 @@ from common import format_tour, read_input
 import solver_sa
 import solver_greedy
 
-CHALLENGES = 2
+CHALLENGES = 7
 TRIAL = 200000
 
 
