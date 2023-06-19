@@ -42,7 +42,7 @@ def solve(cities, trial, initial_path):
         updated_score=get_score(updated_path, cities)
 
         temperature=30-28*i/trial
-        probability=math.exp(min(0, (score-updated_score)/temperature))
+        probability=math.exp(min(0, (updated_score-score)/temperature))
 
         random_prob=random.random()
         if random_prob<probability:
