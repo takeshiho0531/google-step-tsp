@@ -38,54 +38,61 @@ def two_opt(path, N):
     return path, updated_path
 
 
-def reverse_segment_if_better(tour, i, j, k):
-    """If reversing tour[i:j] would make the tour shorter, then do it."""
-    # Given tour [...A-B...C-D...E-F...]
-    A, B, C, D, E, F = tour[i-1], tour[i], tour[j-1], tour[j], tour[k-1], tour[k % len(tour)]
-    d0 = distance(A, B) + distance(C, D) + distance(E, F)
-    d1 = distance(A, C) + distance(B, D) + distance(E, F)
-    d2 = distance(A, B) + distance(C, E) + distance(D, F)
-    d3 = distance(A, D) + distance(E, B) + distance(C, F)
-    d4 = distance(F, B) + distance(C, D) + distance(E, A)
-
-    if d0 > d1:
-        tour[i:j] = reversed(tour[i:j])
-        return -d0 + d1
-    elif d0 > d2:
-        tour[j:k] = reversed(tour[j:k])
-        return -d0 + d2
-    elif d0 > d4:
-        tour[i:k] = reversed(tour[i:k])
-        return -d0 + d4
-    elif d0 > d3:
-        tmp = tour[j:k] + tour[i:j]
-        tour[i:k] = tmp
-        return -d0 + d3
-    return 0
 
 
 def three_opt(path, N):
-    left, intermediate, right =hoge()
+    rand = [random.randint(2, N) for _ in range(3)]
+    sorted_rand = sorted(rand)
+    left = sorted_rand[0]
+    intermediate = sorted_rand[1]
+    right=sorted_rand[2]
+
+    # A, B, C, D, E, F = path[left-1], path[left], path[intermediate-1], path[intermediate], path[right-1], path[right]
+
+    path1=path.copy()
+    path1[left:intermediate] = reversed(path1[left:intermediate])
+
+    path2=path.copy()
+    path2[intermediate:right] = reversed(path2[intermediate:right])
+
+    path3=path.copy()
+    path3[left:right] = reversed(path3[left:right])
+
+    return [(path, path1), (path, path2), (path, path3)]
 
 
 
 
 
 
-def solve(cities, trial, initial_path):
+def solve_sa(cities, trial, initial_path, opt:int):
     N = len(cities)
     path=initial_path
     path.append(0)
 
-    for i in range(trial):
-        path, updated_path=two_opt(path, N)
-        distance=get_distance(path,cities)
-        updated_distance=get_distance(updated_path, cities)
-        temperature=30-28*i/trial
-        probability=math.exp(min(0, (distance-updated_distance)/temperature))
 
-        random_prob=random.random()
-        if random_prob<probability:
-            path=updated_path
+    if opt==2:
+        for i in range(trial):
+            path, updated_path=two_opt(path, N)
+            distance=get_distance(path,cities)
+            updated_distance=get_distance(updated_path, cities)
+            temperature=30-28*i/trial
+            probability=math.exp(min(0, (distance-updated_distance)/temperature))
+            random_prob=random.random()
+            if random_prob<probability:
+                path=updated_path
+        return path[:-1]
 
-    return path[:-1]
+    if opt==3:
+        for i in range(trial):
+            for j in range(3):
+                path, updated_path=three_opt(path, N)[j]
+                distance=get_distance(path,cities)
+                updated_distance=get_distance(updated_path, cities)
+                temperature=30-28*i/trial
+                probability=math.exp(min(0, (distance-updated_distance)/temperature))
+                random_prob=random.random()
+                if random_prob<probability:
+                    return updated_path[:-1]
+        return path[:-1]
+
