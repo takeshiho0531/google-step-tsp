@@ -4,7 +4,7 @@ import solver_sa
 import solver_greedy
 
 CHALLENGES = 7
-TRIAL = 200000
+TRIAL = 40000
 
 def generate_output():
     for i in range(CHALLENGES):
