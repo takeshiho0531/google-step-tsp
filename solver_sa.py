@@ -93,6 +93,11 @@ def solve_sa(cities, trial, initial_path, opt:int):
                 probability=math.exp(min(0, (distance-updated_distance)/temperature))
                 random_prob=random.random()
                 if random_prob<probability:
-                    return updated_path[:-1]
+                    out_of_inner_roop_path=updated_path
+                    break
+                else:
+                    out_of_inner_roop_path=path
+            path=out_of_inner_roop_path
+            print(path)
         return path[:-1]
 
