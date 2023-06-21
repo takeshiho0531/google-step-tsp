@@ -70,34 +70,15 @@ def solve_sa(cities, trial, initial_path, opt:int):
     path=initial_path
     path.append(0)
 
+    for i in range(trial):
+        path, updated_path=two_opt(path, N)
+        distance=get_distance(path,cities)
+        updated_distance=get_distance(updated_path, cities)
+        temperature=30-28*i/trial
+        probability=math.exp(min(0, (distance-updated_distance)/temperature))
+        random_prob=random.random()
+        if random_prob<probability:
+            path=updated_path
+    return path[:-1]
 
-    if opt==2:
-        for i in range(trial):
-            path, updated_path=two_opt(path, N)
-            distance=get_distance(path,cities)
-            updated_distance=get_distance(updated_path, cities)
-            temperature=30-28*i/trial
-            probability=math.exp(min(0, (distance-updated_distance)/temperature))
-            random_prob=random.random()
-            if random_prob<probability:
-                path=updated_path
-        return path[:-1]
-
-    if opt==3:
-        for i in range(trial):
-            for j in range(3):
-                path, updated_path=three_opt(path, N)[j]
-                distance=get_distance(path,cities)
-                updated_distance=get_distance(updated_path, cities)
-                temperature=30-28*i/trial
-                probability=math.exp(min(0, (distance-updated_distance)/temperature))
-                random_prob=random.random()
-                if random_prob<probability:
-                    out_of_inner_roop_path=updated_path
-                    break
-                else:
-                    out_of_inner_roop_path=path
-            path=out_of_inner_roop_path
-            print(path)
-        return path[:-1]
 
